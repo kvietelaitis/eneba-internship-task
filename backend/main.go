@@ -15,6 +15,8 @@ import (
 func init() {
 	initializers.LoadEnvVariables()
 	initializers.ConnectToDatabase()
+	initializers.SyncDatabase()
+	initializers.SeedGames()
 }
 
 func main() {

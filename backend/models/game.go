@@ -11,5 +11,5 @@ type Game struct {
 	Discount      uint    `gorm:"not null"`
 	Type          string  `gorm:"not null"`
 	Favourites    uint    `gorm:"not null"`
-	ImageURL      string  `gorm:"not null`
+	ImageURL      string  `gorm:"not null"`
 }
