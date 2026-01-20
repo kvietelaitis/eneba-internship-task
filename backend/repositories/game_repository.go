@@ -6,7 +6,7 @@ import (
 )
 
 type GameRepository interface {
-	GetAllGames() ([]models.Game, error)
+	GetAllGames(gameName string) ([]models.Game, error)
 	CreateGame(game models.Game) (models.Game, error)
 }
 
@@ -18,9 +18,16 @@ func NewGameRepository(db *gorm.DB) GameRepository {
 	return &gameRepository{db: db}
 }
 
-func (r *gameRepository) GetAllGames() ([]models.Game, error) {
+func (r *gameRepository) GetAllGames(gameName string) ([]models.Game, error) {
 	var games []models.Game
-	result := r.db.Find(&games)
+
+	db := r.db
+
+	if gameName != "" {
+		db = r.db.Where("name ILIKE ?", "%"+gameName+"%")
+	}
+
+	result := db.Find(&games)
 	return games, result.Error
 }
 

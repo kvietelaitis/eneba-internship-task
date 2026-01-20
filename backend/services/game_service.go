@@ -6,7 +6,7 @@ import (
 )
 
 type GameService interface {
-	GetAllGames() ([]models.Game, error)
+	GetAllGames(gameName string) ([]models.Game, error)
 	CreateGame(game models.Game) (models.Game, error)
 }
 
@@ -18,8 +18,8 @@ func NewGameService(repo repositories.GameRepository) GameService {
 	return &gameService{repo: repo}
 }
 
-func (s *gameService) GetAllGames() ([]models.Game, error) {
-	return s.repo.GetAllGames()
+func (s *gameService) GetAllGames(gameName string) ([]models.Game, error) {
+	return s.repo.GetAllGames(gameName)
 }
 
 func (s *gameService) CreateGame(user models.Game) (models.Game, error) {

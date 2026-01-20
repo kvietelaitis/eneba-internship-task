@@ -15,7 +15,9 @@ func NewGameHandler(service services.GameService) *GameHandler {
 }
 
 func (h *GameHandler) GetAllGames(c *fiber.Ctx) error {
-	games, err := h.Service.GetAllGames()
+	gameName := c.Query("search")
+
+	games, err := h.Service.GetAllGames(gameName)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Error fetching games")
 	}
@@ -29,9 +31,9 @@ func (h *GameHandler) CreateGame(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).SendString("Invalid request")
 	}
 
-	createdUser, err := h.Service.CreateGame(game)
+	createdGame, err := h.Service.CreateGame(game)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).SendString("Error creating game")
 	}
-	return c.Status(fiber.StatusCreated).JSON(createdUser)
+	return c.Status(fiber.StatusCreated).JSON(createdGame)
 }
