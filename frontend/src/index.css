@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  /* This creates a class called 'bg-brand' and 'text-brand' */
+  --color-eneba: #4518AC;
+}
