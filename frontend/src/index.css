@@ -3,4 +3,6 @@
 @theme {
   /* This creates a class called 'bg-brand' and 'text-brand' */
   --color-eneba: #4518AC;
+  --color-gametile: #1F0A4D;
+  --color-gametileborder: #63E3C1;
 }
