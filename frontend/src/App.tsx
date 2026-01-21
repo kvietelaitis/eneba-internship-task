@@ -1,10 +1,15 @@
-import SearchBox from './components/layout/search_box'
+import SearchBox from './components/ui/search_box'
 import { useCallback, useState } from "react";
 import { Globe, Heart, ShoppingCart, User } from 'lucide-react';
+import GameCard from './components/ui/game_card';
 
 type Game = {
   ID: number
   Name: string
+  Type: string
+  OriginalPrice: number
+  Discount: number
+  Favourites: number
 }
 
 function App() {
@@ -67,9 +72,7 @@ function App() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {games.map((game: Game) => (
-              <div key={game.ID} className="bg-gametile border-2 border-gametileborder text-white p-4">
-                <h2 className="font-bold text-lg">{game.Name}</h2>
-              </div>
+              <GameCard game={game} />
             ))}
           </div>
         )}
