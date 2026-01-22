@@ -2,6 +2,7 @@ import SearchBox from './components/ui/search_box'
 import { useCallback, useState } from "react";
 import { Globe, Heart, ShoppingCart, User } from 'lucide-react';
 import GameCard from './components/ui/game_card';
+import { Oval } from 'react-loader-spinner'
 
 type Game = {
   ID: number
@@ -10,16 +11,18 @@ type Game = {
   OriginalPrice: number
   Discount: number
   Favourites: number
+  ImageURL: string
 }
 
 function App() {
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSearch = useCallback(async (searchTerm: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://127.0.0.1:3000/list?search=${searchTerm}`);
+      const response = await fetch(`${apiUrl}list?search=${searchTerm}`);
       const data = await response.json();
       setGames(data);
     } catch (error) {
@@ -66,14 +69,30 @@ function App() {
         </div>
       </header>
 
-      <main className="p-8">
+      <main className="flex-grow p-16 flex flex-col">
         {loading ? (
-          <p>Searching...</p>
+          <div className='flex-grow flex items-center justify-center'>
+            <Oval visible={true}/>
+          </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {games.map((game: Game) => (
-              <GameCard game={game} />
-            ))}
+          <div className="max-w-7xl mx-auto px-4">
+            {games.length > 0 ? (
+              <>
+                <div className="text-white py-6 flex items-center gap-2">
+                  <span>Results found:</span>
+                  <span className="font-bold text-white">{games.length}</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                  {games.map((game: Game) => (
+                    <GameCard key={game.ID} game={game} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-20">
+                <p className="text-gray-400 text-lg">No games found. Try a different search term.</p>
+              </div>
+            )}
           </div>
         )}
       </main>
