@@ -32,8 +32,8 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-eneba flex flex-col">
-      <header>
+    <div className="font-brand min-h-screen bg-eneba flex flex-col">
+      <header className="w-full px-6 md:px-12 lg:px-[260px]">
         <Header onSearch={handleSearch}/>        
       </header>
 
@@ -46,7 +46,7 @@ function App() {
           <div className="max-w-7xl mx-auto px-4">
             {games.length > 0 ? (
               <>
-                <div className="text-white py-6 flex items-center gap-2">
+                <div className="text-white py-6 flex items-center gap-1">
                   <span>Results found:</span>
                   <span className="font-bold text-white">{games.length}</span>
                 </div>
