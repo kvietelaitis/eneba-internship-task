@@ -99,3 +99,4 @@ After saving, enter this command into the terminal to start the service:
 ```bash
 npm run build
 ```
+The output should give a link to paste into the browser and check out the project.
