@@ -35,6 +35,22 @@ function App() {
     setCartItems(newCartItems)
   }
 
+  useEffect(() => {
+    const fetchGames = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`${apiUrl}list`);
+        const data = await response.json();
+        setGames(data);
+      } catch (error) {
+        console.error("Error fetching games:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGames();
+  }, []);
+
   const handleSearch = useCallback(async (searchTerm: string) => {
     setLoading(true);
     try {

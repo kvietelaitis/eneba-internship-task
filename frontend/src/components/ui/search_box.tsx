@@ -7,12 +7,11 @@ interface SearchProps {
 function SearchBox({ onSearch }: SearchProps) {
     const [query, setQuery] = useState("");
 
-    useEffect(() => {
-        const timeOutId = setTimeout(() => {
-            onSearch(query);
-        }, 500);
-        return () => clearTimeout(timeOutId);
-    }, [query, onSearch]);
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            onSearch(query)
+        }
+    };
 
     return (
         <div className="relative w-full max-w-md">
@@ -28,6 +27,7 @@ function SearchBox({ onSearch }: SearchProps) {
                 placeholder="Search for games..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
             />
         </div>
     )
