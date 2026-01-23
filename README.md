@@ -4,6 +4,14 @@ This is my rendition of the given task by Eneba for their internship program.
 
 It was a lot of fun building and deploying this small project, and I learned a lot in the process:)
 
+## notes
+
+The provided compose and .env files should have their values changed, as they are only for demonstration purposes.
+
+This process should only be followed if the deployed version of the site is not fully functional.
+
+If the deployed version is not functional (specifically the connection to the backend API, as I am running it locally on one of my machines), please contact me and I will try to fix whichever problem has occurred.
+
 ## prerequisites
 
 Before starting, make sure to have the latest versions of these packages:
@@ -91,11 +99,3 @@ After saving, enter this command into the terminal to start the service:
 ```bash
 npm run build
 ```
-
-## notes
-
-The provided compose and .env files should have their values changed, as they are only for demonstration purposes.
-
-This process should only be followed if the deployed version of the site is not fully functional.
-
-If the deployed version is not functional (specifically the connection to the backend API, as I am running it locally on one of my machines), please contact me and I will try to fix whichever problem has occurred.

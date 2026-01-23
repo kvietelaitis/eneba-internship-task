@@ -97,7 +97,7 @@ function App() {
                   <span>Results found:</span>
                   <span className="font-bold text-white">{games.length}</span>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                   {games.map((game: Game) => (
                     <GameCard key={game.ID} game={game} onAddToCart={addToCart} />
                   ))}
