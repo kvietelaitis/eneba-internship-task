@@ -28,11 +28,11 @@ function Header({onSearch, cartItems, onRemove, isCartOpen, setCartOpen}: Header
     return (
         <div className='flex items-center justify-between text-white py-3 px-4 sm:px-6 md:px-8 lg:px-12 gap-2 sm:gap-4'>
             
-            {/* Mobile Search Overlay: Shows only when isSearchOverlayOpen is true on small screens */}
+            {/* Mobile Search Overlay */}
             {isSearchOverlayOpen && (
                 <div className="absolute inset-0 bg-eneba z-50 flex items-center px-4 md:hidden">
                     <button onClick={() => setIsSearchOverlayOpen(false)} className="mr-3 p-2">
-                        <ArrowLeft size={24} />
+                        <ArrowLeft size={20} className="w-6 h-6" /> {/* Updated size */}
                     </button>
                     <div className="flex-1">
                         <SearchBox onSearch={onSearch} />
@@ -49,30 +49,31 @@ function Header({onSearch, cartItems, onRemove, isCartOpen, setCartOpen}: Header
                 />
             </div>
 
-            {/* Center Section: Desktop Search (Hidden on small screens) */}
-            <div className='hidden md:block flex-1 max-w-xl lg:max-w-2xl px-4'>
-                <SearchBox onSearch={onSearch} />
-            </div>
-
-            {/* Right Section: Icons and Mobile Search Trigger */}
-            <nav className="flex items-center gap-2 sm:gap-4 md:gap-6 ml-auto">
-                <nav className="hidden lg:flex">
+            {/* Center Section: Desktop Search */}
+            <div className='hidden md:flex items-center flex-1 max-w-lg lg:max-w-xl px-4 gap-4'>
+                <div className="flex-1">
+                    <SearchBox onSearch={onSearch} />
+                </div>
+                <nav className="hidden lg:flex flex-shrink-0">
                     <a href="#" className="flex items-center gap-2 hover:text-purple-400 transition-colors">
-                        <Globe size={20} className="w-5 h-5" />
+                        <Globe size={20} className="w-6 h-6 md:w-7 md:h-7" />
                         <span className="text-sm font-medium">EN/EUR</span>
                     </a>
                 </nav>
+            </div>
 
-                {/* Mobile Search Button: Visible only below 'md' */}
+            <nav className="flex items-center gap-2 sm:gap-4 md:gap-6 ml-auto">
+
+                {/* Mobile Search Button */}
                 <button 
                     onClick={() => setIsSearchOverlayOpen(true)}
                     className="md:hidden p-2 hover:bg-white/10 rounded-full transition-colors"
                 >
-                    <Search size={24} />
+                    <Search size={20} className="w-6 h-6" /> {/* Updated size */}
                 </button>
 
-                {/* Favourites (Hidden on extra small screens) */}
-                <a href="#" className="hidden xs:flex items-center hover:text-purple-400 transition-colors">
+                {/* Favourites - Changed hidden xs:flex to flex */}
+                <a href="#" className="flex items-center hover:text-purple-400 transition-colors">
                     <Heart size={20} className="w-6 h-6 md:w-7 md:h-7" />
                 </a>
 
