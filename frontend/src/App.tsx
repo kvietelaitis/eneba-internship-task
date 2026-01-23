@@ -54,7 +54,7 @@ function App() {
 
   return (
     <div className="font-brand min-h-screen bg-eneba flex flex-col">
-      <header className="w-full px-6 md:px-12 lg:px-[260px]">
+      <header className="w-full px-2 sm:px-4 md:px-8 lg:px-[120px] xl:px-[260px]">
         <Header 
           onSearch={handleSearch} 
           cartItems={cartItems} 
