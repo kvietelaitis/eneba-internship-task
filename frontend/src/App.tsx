@@ -54,7 +54,11 @@ function App() {
   const handleSearch = useCallback(async (searchTerm: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${apiUrl}list?search=${searchTerm}`);
+      const url = searchTerm 
+        ? `${apiUrl}list?search=${encodeURIComponent(searchTerm)}` 
+        : `${apiUrl}list`;
+
+      const response = await fetch(url);
       const data = await response.json();
       setGames(data);
     } catch (error) {
