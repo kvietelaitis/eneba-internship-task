@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import GameCard from './components/ui/game_card';
 import { Oval } from 'react-loader-spinner'
 import Header from "./components/layout/header";
@@ -7,6 +7,7 @@ type Game = {
   ID: number
   Name: string
   Type: string
+  Store: string
   OriginalPrice: number
   Discount: number
   Favourites: number
@@ -16,7 +17,23 @@ type Game = {
 function App() {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const [cartItems, setCartItems] = useState<Game[]>(() => {
+    const savedCart = localStorage.getItem('user-cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
   const apiUrl = import.meta.env.VITE_API_URL;
+
+  const addToCart = (game: Game) => {
+    setCartItems((prevItems) => [...prevItems, game]);
+  };
+
+  const removeFromCart = (id: number) => {
+  const newCartItems = cartItems.filter(game => game.ID !== id);
+    setCartItems(newCartItems)
+  }
 
   const handleSearch = useCallback(async (searchTerm: string) => {
     setLoading(true);
@@ -31,10 +48,20 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('user-cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <div className="font-brand min-h-screen bg-eneba flex flex-col">
       <header className="w-full px-6 md:px-12 lg:px-[260px]">
-        <Header onSearch={handleSearch}/>        
+        <Header 
+          onSearch={handleSearch} 
+          cartItems={cartItems} 
+          isCartOpen={isCartOpen} 
+          setCartOpen={setIsCartOpen}
+          onRemove={removeFromCart}
+        />         
       </header>
 
       <main className="flex-grow p-16 flex flex-col">
@@ -52,13 +79,13 @@ function App() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
                   {games.map((game: Game) => (
-                    <GameCard key={game.ID} game={game} />
+                    <GameCard key={game.ID} game={game} onAddToCart={addToCart} />
                   ))}
                 </div>
               </>
             ) : (
               <div className="text-center py-20">
-                <p className="text-gray-400 text-lg">No games found. Try a different search term.</p>
+                <p className="text-white text-xl font-bold">No games found. Try a different search term.</p>
               </div>
             )}
           </div>
